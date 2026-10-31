@@ -68,7 +68,8 @@ class HomeAdapter(private val homeModel: HomeViewModel, private val appsModel: A
         }
         addItem(AutomationViewHolder.CREATOR, null, ID_AUTOMATION)
 
-        addItem(StealthViewHolder.CREATOR, null, ID_STEALTH)
+        // Core Scorpion: stealth mode hidden (it changes the package name, apps such as Ludex would lose Shizuku)
+        // addItem(StealthViewHolder.CREATOR, null, ID_STEALTH)
 
         addItem(LearnMoreViewHolder.CREATOR, null, ID_LEARN_MORE)
         notifyDataSetChanged()

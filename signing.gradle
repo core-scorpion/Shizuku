@@ -10,6 +10,12 @@ if (ksFile.canRead()) {
         android.signingConfigs.sign.keyPassword props["KEYSTORE_ALIAS_PASSWORD"]
     }
 } else {
+    // Core Scorpion: a release must never be signed with the debug key by mistake
+    gradle.taskGraph.whenReady { graph ->
+        if (graph.allTasks.any { it.name.toLowerCase().contains("release") }) {
+            throw new GradleException("signing.properties is missing: release builds must be signed with the Core Scorpion key")
+        }
+    }
     android.signingConfigs.sign.storeFile = android.signingConfigs.debug.storeFile
     android.signingConfigs.sign.storePassword = android.signingConfigs.debug.storePassword
     android.signingConfigs.sign.keyAlias = android.signingConfigs.debug.keyAlias

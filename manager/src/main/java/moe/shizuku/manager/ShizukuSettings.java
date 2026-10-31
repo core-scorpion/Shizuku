@@ -168,7 +168,8 @@ public class ShizukuSettings {
     }
 
     public static boolean getTcpMode() {
-        return getPreferences().getBoolean(Keys.KEY_TCP_MODE, true);
+        // Core Scorpion: off by default, adb does not listen on the local network
+        return getPreferences().getBoolean(Keys.KEY_TCP_MODE, false);
     }
 
     public static void setTcpMode(boolean enable) {
@@ -214,6 +215,7 @@ public class ShizukuSettings {
     }
 
     public static int getUpdateMode() {
-        return getPreferences().getInt(Keys.KEY_UPDATE_MODE, UpdateMode.STABLE);
+        // Core Scorpion: updates come from Ludex (signature and SHA-256 checked); the built-in updater is off by default
+        return getPreferences().getInt(Keys.KEY_UPDATE_MODE, UpdateMode.OFF);
     }
 }
